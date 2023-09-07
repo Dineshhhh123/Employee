@@ -4,7 +4,7 @@ const DB_CONFIG = {
   host: 'localhost',
   user: 'root',
   password: 'Dinesh@123',
-  database: 'cms',
+  database: 'employee1',
 };
 
 export const sequelize = new Sequelize(DB_CONFIG.database, DB_CONFIG.user, DB_CONFIG.password, {

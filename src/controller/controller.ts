@@ -47,7 +47,17 @@ class EmployeeController {
       const { name, age, gender, uniqueId, role, ctc} = req.body;
       const salcal = salaryCal(ctc)
       console.log((await salcal).basicSalary)
-      const newEmployee = await Employee.create({name, age, gender, uniqueId, role, ctc, basicSalary:(await salcal).basicSalary, actualHRA:(await salcal).actualHRA, specialAllowance:(await salcal).specialAllowance, incomeTax:(await salcal).incomeTax});
+      const newEmployee = await Employee.create({
+        name, 
+        age, 
+        gender, 
+        uniqueId, 
+        role, 
+        ctc, 
+        basicSalary:(await salcal).basicSalary, 
+        actualHRA:(await salcal).actualHRA, 
+        specialAllowance:(await salcal).specialAllowance, 
+        incomeTax:(await salcal).incomeTax});
       res.status(201).json(newEmployee);
     } catch (error) {
       console.error('Error creating employee:', error);
@@ -83,10 +93,7 @@ class EmployeeController {
         uniqueId: obj.uniqueId,
         role: obj.role,
         ctc: obj.ctc,
-        basicSalary: obj.basicSalary,
-        actualHRA: obj.actualHRA,
-        specialAllowance: obj.specialAllowance,
-        incomeTax: obj.incomeTax,
+
       }));
   
       const workbook = new ExcelJS.Workbook();
@@ -100,10 +107,6 @@ class EmployeeController {
         { header: 'uniqueId', key: 'uniqueId', width: 25 },
         { header: 'role', key: 'role', width: 25 },
         { header: 'ctc', key: 'ctc', width: 25 },
-        { header: 'basicSalary', key: 'basicSalary', width: 25 },
-        { header: 'actualHRA', key: 'actualHRA', width: 25 },
-        { header: 'specialAllowance', key: 'specialAllowance', width: 25 },
-        { header: 'incomeTax', key: 'incomeTax', width: 25 },
       ];
   
       worksheet.addRows(tutorials);

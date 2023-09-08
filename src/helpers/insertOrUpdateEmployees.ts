@@ -9,14 +9,9 @@ export async function insertOrUpdateEmployees(employeesData: any) {
         const existingEmployee = await Employee.findOne({
           where: { uniqueId: data.uniqueId },
         });
-        const sal = salaryCal(data.ctc)
-        const obj = {
-          basicSalary:(await sal).basicSalary,
-          actualHRA:(await sal).actualHRA,
-          specialAllowance:(await sal).specialAllowance,
-          incomeTax:(await sal).incomeTax
-        }
-        const mergedObject = { ...data, ...obj };
+        const sal =await  salaryCal(data.ctc)
+        
+        const mergedObject = { ...data, ...sal };
         
         if (existingEmployee) {
           await existingEmployee.update(mergedObject);

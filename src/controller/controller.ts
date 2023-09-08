@@ -45,8 +45,7 @@ class EmployeeController {
   async createEmployee(req: Request, res: Response): Promise<void> {
     try {
       const { name, age, gender, uniqueId, role, ctc} = req.body;
-      const salcal = salaryCal(ctc)
-      console.log((await salcal).basicSalary)
+      const salcal =await  salaryCal(ctc)
       const newEmployee = await Employee.create({
         name, 
         age, 
@@ -54,10 +53,10 @@ class EmployeeController {
         uniqueId, 
         role, 
         ctc, 
-        basicSalary:(await salcal).basicSalary, 
-        actualHRA:(await salcal).actualHRA, 
-        specialAllowance:(await salcal).specialAllowance, 
-        incomeTax:(await salcal).incomeTax});
+        basicSalary:salcal.basicSalary, 
+        actualHRA:salcal.actualHRA, 
+        specialAllowance:salcal.specialAllowance, 
+        incomeTax:salcal.incomeTax});
       res.status(201).json(newEmployee);
     } catch (error) {
       console.error('Error creating employee:', error);
